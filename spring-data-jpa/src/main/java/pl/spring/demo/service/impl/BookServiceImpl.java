@@ -33,6 +33,8 @@ public class BookServiceImpl implements BookService {
     public List<BookTo> findBooksByAuthor(String author) {
         return BookMapper.map2To(bookRepository.findBookByAuthor(author));
     }
+    
+    
 
     @Override
     @Transactional(readOnly = false)
@@ -47,5 +49,10 @@ public class BookServiceImpl implements BookService {
 	public void deleteBook(Long id) {
 		bookRepository.delete(id);
 		
+	}
+
+	@Override
+	public BookTo findBookById(Long entryId) {
+		return BookMapper.map(bookRepository.findBookById(entryId));
 	}
 }

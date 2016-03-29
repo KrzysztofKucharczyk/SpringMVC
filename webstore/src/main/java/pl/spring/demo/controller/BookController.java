@@ -1,13 +1,17 @@
 package pl.spring.demo.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import pl.spring.demo.constants.ModelConstants;
 import pl.spring.demo.constants.ViewNames;
+import pl.spring.demo.service.BookService;
+import pl.spring.demo.to.BookTo;
 
 /**
  * Book controller
@@ -19,24 +23,28 @@ import pl.spring.demo.constants.ViewNames;
 @RequestMapping("/books")
 public class BookController {
 
+	private static final String PAGE_DESCRIPTION = "Here is a place to review all library's content. Feel free to touch book's covers, read about them and breath their ePub smell.";
+	private static final String PAGE_NAME = "List of books";
+	
+	@Autowired
+	private BookService bookService;
+	
 	@RequestMapping
 	public String list(Model model) {
-		// TODO: implement default method
+		model.addAttribute(ModelConstants.GREETING, PAGE_NAME);
+		model.addAttribute(ModelConstants.INFO, PAGE_DESCRIPTION);
+		model.addAttribute(ModelConstants.BOOK_LIST, bookService.findAllBooks());
 		return ViewNames.BOOKS;
 	}
 
-	/**
-	 * Method collects info about all books
-	 */
-	@RequestMapping("/all")
-	public ModelAndView allBooks() {
-		ModelAndView modelAndView = new ModelAndView();
-
-		// TODO: implement method gathering and displaying all books
-
-		return modelAndView;
+	@RequestMapping(value = "/book")
+	public String getBookById(@RequestParam("id") Long entryId, Model model) {
+		BookTo book = bookService.findBookById(entryId);
+		model.addAttribute("book", book);
+		return ViewNames.BOOK;
+		
 	}
-
+	
 	// TODO: here implement methods which displays book info based on query
 	// arguments
 

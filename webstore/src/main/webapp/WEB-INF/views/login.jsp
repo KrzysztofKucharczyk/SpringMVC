@@ -54,4 +54,9 @@
 			</div>
 		</div>
 	</div>
+	<section class="container">
+		<a href="/webstore" class="btn btn-default"> <span
+			class="glyphicon glyphicon-chevron-left" /></span> Back
+		</a>
+	</section>
 </body>
