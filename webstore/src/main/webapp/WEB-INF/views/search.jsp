@@ -9,14 +9,31 @@
 <link rel="stylesheet"
 	href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
 
-<title>List of books</title>
+<title>Search</title>
 </head>
 <body>
 	<section>
 		<div class="jumbotron">
 			<div class="container">
-				<h1>${greeting}</h1>
-				<p>${info}</p>
+				<h1>Search</h1>
+				<p>Here all books will be filtered to find only those, which
+					suits you best.</p>
+			</div>
+		</div>
+	</section>
+	<section class="container">
+		<div class="row">
+			<div class="col-md-6">
+				<form name="title" action="searchDetails" method="POST">
+					<input type='text' name='title' /> <input type='text'
+						name='authors' />
+
+					<!-- 					<label class="radio-inline"><input type="radio" name="status" value='free'>Free</label> -->
+					<!-- 					<label class="radio-inline"><input type="radio" name="status" value='loan'>Loan</label> -->
+					<!-- 					<label class="radio-inline"><input type="radio" name="status" value='missing'>Missing</label> -->
+
+					<input type='submit' value='Search' class='btn' />
+				</form>
 			</div>
 		</div>
 	</section>
@@ -32,7 +49,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					<c:forEach items="${bookList}" var="book">
+					<c:forEach items="${foundBooks}" var="book">
 						<tr>
 							<td align="center">${book.title}</td>
 							<td align="center">${book.authors}</td>
@@ -49,10 +66,8 @@
 		</div>
 	</section>
 	<section class="container">
-		<a href="/webstore" class="btn btn-default"> <span
+		<a href="/webstore/books" class="btn btn-default"> <span
 			class="glyphicon glyphicon-chevron-left" /></span> Back
-		</a> <a href="/webstore/books/search" class="btn btn-default"> <span
-			class="glyphicon glyphicon-filter" /></span> Search
 		</a>
 	</section>
 </body>

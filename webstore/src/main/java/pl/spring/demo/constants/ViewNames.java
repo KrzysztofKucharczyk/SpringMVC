@@ -18,4 +18,5 @@ public final class ViewNames implements Serializable {
 	public static final String LOGIN = "login";
 	public static final String WELCOME = "welcome";
 	public static final String _403 = "403";
+	public static final String SEARCH = "search";
 }

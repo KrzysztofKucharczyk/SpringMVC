@@ -49,4 +49,22 @@ public class BookTo {
 	public void setStatus(BookStatus status) {
 		this.status = status;
 	}
+	
+	@Override
+	public boolean equals(Object other) {
+		BookTo a = (BookTo) other;
+		if(a.id != id)
+			return false;
+		if(a.title != title)
+			return false;
+		if(a.authors != authors)
+			return false;
+		return true;
+			
+	}
+	
+	@Override
+	public int hashCode() {
+		return (int) (id*100+title.hashCode()*10+authors.hashCode());
+	}
 }
