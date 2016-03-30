@@ -6,7 +6,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.servlet.ModelAndView;
 
 import pl.spring.demo.constants.ViewNames;
 
@@ -31,12 +30,12 @@ public class LoginController {
 	}
 
 	@RequestMapping(value = "/403", method = RequestMethod.GET)
-	public ModelAndView accesssDenied(Principal user) {
-		ModelAndView model = new ModelAndView();
-
+	public String accesssDenied(Principal user, Model model) {
+		model.addAttribute("userName", user.getName());
+		
 		// TODO: implement mechanism redirecting to new custom page _403
 		// (consider extending informations by custom values)
-		return model;
+		return "403";
 
 	}
 }

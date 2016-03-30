@@ -26,7 +26,7 @@
 						<p>Display all books</p>
 						<p>
 							<a href="/webstore/books" class="btn btn-default"> <span
-								class="glyphicon-info-sign glyphicon" /></span> Show all books
+								class="glyphicon glyphicon-book" /></span> Show all books
 							</a>
 						</p>
 					</div>
@@ -43,7 +43,7 @@
 						<p>Create new book</p>
 						<p>
 							<a href="/webstore/books/add" class="btn btn-default"> <span
-								class="glyphicon-info-sign glyphicon" /></span> Add book
+								class="glyphicon glyphicon-plus" /></span> Add book
 							</a>
 						</p>
 					</div>
