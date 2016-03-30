@@ -51,8 +51,15 @@ public class BookServiceImpl implements BookService {
 		
 	}
 
+	@Transactional(readOnly = false)
+	@Override
+	public void updateBook(BookTo book) {
+		bookRepository.updateBook(book.getId(), book.getTitle(), book.getAuthors(), book.getStatus());
+	}
+	
 	@Override
 	public BookTo findBookById(Long entryId) {
 		return BookMapper.map(bookRepository.findBookById(entryId));
 	}
+
 }
