@@ -83,10 +83,20 @@ public class BookController {
 		}
 		return ViewNames.SEARCH;
 	}
+	
+	@RequestMapping(value = "/remove")
+	public String prepareToRemoveBookById(@RequestParam("id") Long entryId, Model model) {
+		BookTo book = bookService.findBookById(entryId);
+		model.addAttribute("bookToRemove", book);
+		return "acceptRemove";
+	}
 
-	// TODO: here implement methods which displays book info based on query
-	// arguments
-
+	@RequestMapping(value = "/removed")
+	public String removeBookById(@RequestParam("id") Long entryId, Model model) {
+		bookService.deleteBook(entryId);
+		return "removed";
+	}
+	
 	// TODO: Implement GET / POST methods for "add book" functionality
 
 	/**
@@ -96,5 +106,6 @@ public class BookController {
 	public void initialiseBinder(WebDataBinder binder) {
 		binder.setAllowedFields("id", "title", "authors", "status");
 	}
+
 
 }

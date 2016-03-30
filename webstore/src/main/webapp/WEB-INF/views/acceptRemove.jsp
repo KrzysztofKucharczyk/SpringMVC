@@ -15,16 +15,25 @@
 	<section>
 		<div class="jumbotron">
 			<div class="container">
-				<h1>${book.title}</h1>
-				<p>${book.authors}</p>
+				<h1>Are you sure you want to remove this book?</h1>
+				<p>Please, carefully track the book you want to remove and
+					choose operation.</p>
 			</div>
 		</div>
 	</section>
 	<section class="container">
 		<div class="row">
 			<div class="component">
+				<h3>Title:</h3>
+				${bookToRemove.title}
+			</div>
+			<div class="component">
+				<h3>Authors:</h3>
+				${bookToRemove.authors}
+			</div>
+			<div class="component">
 				<h3>Status:</h3>
-				${book.status}
+				${bookToRemove.status}
 			</div>
 			<div class="component">
 				<h3>Description:</h3>
@@ -33,8 +42,10 @@
 		</div>
 	</section>
 	<section class="container">
-		<a href="/webstore/books" class="btn btn-default"> <span
-			class="glyphicon glyphicon-chevron-left" /></span> Back
+		<a href="/webstore/books" class="btn btn-default">
+			<span class="glyphicon glyphicon-chevron-left" /></span> Back
+		</a> <a href="/webstore/books/removed?id=${bookToRemove.id}" class="btn btn-default"> <span
+			class="glyphicon glyphicon-remove" /></span> Remove
 		</a>
 	</section>
 </body>

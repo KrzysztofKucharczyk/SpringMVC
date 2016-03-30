@@ -28,7 +28,7 @@
 						<td align="center">Title</td>
 						<td align="center">Author</td>
 						<td align="center">Status</td>
-						<td align="center">Details</td>
+						<td align="center">Operations</td>
 					</tr>
 				</thead>
 				<tbody>
@@ -41,6 +41,9 @@
 								href="/webstore/books/book?id=${book.id}"
 								class="btn btn-default"> <span
 									class="glyphicon glyphicon-zoom-in" /></span>
+							</a> <a href="/webstore/books/remove?id=${book.id}"
+								class="btn btn-default"> <span
+									class="glyphicon glyphicon-remove" /></span>
 							</a></td>
 						</tr>
 					</c:forEach>
