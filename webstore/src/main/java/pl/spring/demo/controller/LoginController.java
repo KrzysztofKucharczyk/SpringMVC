@@ -32,9 +32,6 @@ public class LoginController {
 	@RequestMapping(value = "/403", method = RequestMethod.GET)
 	public String accesssDenied(Principal user, Model model) {
 		model.addAttribute("userName", user.getName());
-		
-		// TODO: implement mechanism redirecting to new custom page _403
-		// (consider extending informations by custom values)
 		return "403";
 
 	}

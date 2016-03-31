@@ -44,7 +44,7 @@
 	<section class="container">
 		<a href="/webstore/books" class="btn btn-default">
 			<span class="glyphicon glyphicon-chevron-left" /></span> Back
-		</a> <a href="/webstore/books/removed?id=${bookToRemove.id}" class="btn btn-default"> <span
+		</a> <a href="/webstore/books/remove/removed?id=${bookToRemove.id}" class="btn btn-default"> <span
 			class="glyphicon glyphicon-remove" /></span> Remove
 		</a>
 	</section>

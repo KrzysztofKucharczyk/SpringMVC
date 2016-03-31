@@ -38,42 +38,44 @@ public class BookRestService {
 	}
 
 	@RequestMapping(value = "rbooks/", method = RequestMethod.POST)
-	public ResponseEntity<BookTo> createBook(@RequestBody BookTo bookTo) {
+	public ResponseEntity<String> createBook(@RequestBody BookTo bookTo) {
 		BookTo newBook = bookTo;
-		
+
 		if (bookService.findAllBooks().contains(newBook))
-			return new ResponseEntity<BookTo>(HttpStatus.CONFLICT);
-		
+			return new ResponseEntity<String>("The book is already in the database.", HttpStatus.CONFLICT);
+
 		bookService.saveBook(newBook);
-		
-		return (newBook != null) ? new ResponseEntity<BookTo>(newBook, HttpStatus.OK)
-				: new ResponseEntity<BookTo>(HttpStatus.NOT_FOUND);
+
+		return (newBook != null) ? new ResponseEntity<String>("Book has been added to the database.", HttpStatus.OK)
+				: new ResponseEntity<String>("Cannot find book to add. Check request parameters.",
+						HttpStatus.NOT_FOUND);
 	}
 
 	@RequestMapping(value = "rbook/{id}", method = RequestMethod.PUT)
-	public ResponseEntity<BookTo> updateBook(@PathVariable("id") long id, @RequestBody BookTo bookTo) {
-		
-		if(bookTo != null) {
-			bookService.updateBook(bookTo);			
-		}
-		else
-			return new ResponseEntity<BookTo>(HttpStatus.NOT_FOUND);
-		
-		return new ResponseEntity<BookTo>(bookTo, HttpStatus.OK);
+	public ResponseEntity<String> updateBook(@PathVariable("id") long id, @RequestBody BookTo bookTo) {
+
+		if (bookTo != null) {
+			bookService.updateBook(bookTo);
+		} else
+			return new ResponseEntity<String>("Requested book has not been found in the database.",
+					HttpStatus.NOT_FOUND);
+
+		return new ResponseEntity<String>(
+				new String(
+						"Book " + bookTo.getTitle() + " has been updated with those data: " + bookTo.toString() + "."),
+				HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "rbook/{id}", method = RequestMethod.DELETE)
-	public ResponseEntity<BookTo> removeBook(@PathVariable("id") long id) {
+	public ResponseEntity<String> removeBook(@PathVariable("id") long id) {
 		BookTo bookToRemove = bookService.findBookById(id);
-		
+
 		if (bookToRemove != null) {
 			bookService.deleteBook(id);
-			return new ResponseEntity<BookTo>(bookToRemove, HttpStatus.OK);
+			return new ResponseEntity<String>("Book has been purged from the database.", HttpStatus.OK);
 		} else
-			return new ResponseEntity<BookTo>(HttpStatus.NOT_FOUND);
+			return new ResponseEntity<String>("Requested book has not been found in the database.",
+					HttpStatus.NOT_FOUND);
 	}
-
-	// TODO: implement some search methods considering single request parameters
-	// / multiple request parameters / array request parameters
 
 }

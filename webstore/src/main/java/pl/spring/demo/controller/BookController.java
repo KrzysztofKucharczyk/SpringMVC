@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import pl.spring.demo.constants.ModelConstants;
 import pl.spring.demo.constants.ViewNames;
+import pl.spring.demo.enumerations.BookStatus;
 import pl.spring.demo.service.BookService;
 import pl.spring.demo.to.BookTo;
 
@@ -49,7 +50,6 @@ public class BookController {
 
 	@RequestMapping("/search")
 	public String getBookById(Model model) {
-
 		return ViewNames.SEARCH;
 	}
 
@@ -91,10 +91,35 @@ public class BookController {
 		return "acceptRemove";
 	}
 
-	@RequestMapping(value = "/removed")
+	@RequestMapping(value = "remove/removed")
 	public String removeBookById(@RequestParam("id") Long entryId, Model model) {
 		bookService.deleteBook(entryId);
 		return "removed";
+	}
+	
+	@RequestMapping(value = "/add")
+	public String addBook(Model model) {
+		return "add";
+	}
+	
+	@RequestMapping(value = "/adding")
+	public String addingBook(@RequestParam("title") String title, @RequestParam("authors") String authors, @RequestParam("status") String status) {
+		
+		BookTo newBook = new BookTo();
+
+		newBook.setTitle(title);
+		newBook.setAuthors(authors);
+		
+		if(status.equals("free"))
+			newBook.setStatus(BookStatus.FREE);
+		if(status.equals("loan"))
+			newBook.setStatus(BookStatus.LOAN);
+		if(status.equals("missing"))
+			newBook.setStatus(BookStatus.MISSING);
+		
+		bookService.saveBook(newBook);
+		
+		return "added";
 	}
 	
 	// TODO: Implement GET / POST methods for "add book" functionality

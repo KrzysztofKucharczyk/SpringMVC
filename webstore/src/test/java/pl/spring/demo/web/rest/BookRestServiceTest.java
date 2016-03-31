@@ -8,6 +8,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import java.io.File;
 import java.util.Arrays;
 
+import org.hibernate.engine.spi.Status;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -54,10 +55,10 @@ public class BookRestServiceTest {
 		// register response for bookService.findAllBooks() mock
 		Mockito.when(bookService.findAllBooks()).thenReturn(Arrays.asList(bookTo1));
 		// when
-		ResultActions response = this.mockMvc.perform(get("/allBooks").accept(MediaType.APPLICATION_JSON)
+		ResultActions response = this.mockMvc.perform(get("/rbooks/").accept(MediaType.APPLICATION_JSON)
 				.contentType(MediaType.APPLICATION_JSON).content("1"));
 
-		response.andExpect(status().isOk())//
+		response.andExpect(status().isOk())
 				.andExpect(jsonPath("[0].id").value(bookTo1.getId().intValue()))
 				.andExpect(jsonPath("[0].title").value(bookTo1.getTitle()))
 				.andExpect(jsonPath("[0].authors").value(bookTo1.getAuthors()));
@@ -69,7 +70,7 @@ public class BookRestServiceTest {
 		File file = FileUtils.getFileFromClasspath("classpath:pl/spring/demo/web/json/bookToSave.json");
 		String json = FileUtils.readFileToString(file);
 		// when
-		ResultActions response = this.mockMvc.perform(post("/book").accept(MediaType.APPLICATION_JSON)
+		ResultActions response = this.mockMvc.perform(post("/rbooks/").accept(MediaType.APPLICATION_JSON)
 				.contentType(MediaType.APPLICATION_JSON).content(json.getBytes()));
 		// then
 		response.andExpect(status().isOk());

@@ -1,5 +1,7 @@
 package pl.spring.demo.controller;
 
+import java.security.Principal;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,7 +16,7 @@ public class HomeController {
 	private static final String WELCOME = "Awesome library";
 
 	@RequestMapping("/")
-	public String welcome(Model model) {
+	public String welcome(Principal user, Model model) {
 		model.addAttribute(ModelConstants.GREETING, WELCOME);
 		model.addAttribute(ModelConstants.INFO, INFO_TEXT);
 		return ViewNames.WELCOME;

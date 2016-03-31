@@ -25,8 +25,8 @@
 		<div class="row">
 			<div class="col-md-6">
 				<form name="title" action="searchDetails" method="POST">
-					<input type='text' name='title' /> <input type='text'
-						name='authors' />
+					<input type='text' name='title' /> 
+					<input type='text' name='authors' />
 
 					<!-- 					<label class="radio-inline"><input type="radio" name="status" value='free'>Free</label> -->
 					<!-- 					<label class="radio-inline"><input type="radio" name="status" value='loan'>Loan</label> -->
