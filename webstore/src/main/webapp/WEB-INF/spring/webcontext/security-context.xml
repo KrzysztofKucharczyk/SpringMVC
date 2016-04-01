@@ -10,27 +10,30 @@
 	<security:http auto-config="true">
 		<security:intercept-url pattern="/books/add"
 			access="ROLE_ADMIN" />
-		<security:intercept-url pattern="/books/remove"
-			access="ROLE_SEXY_BEAST" />
 		<security:form-login login-page="/login"
-			default-target-url="/books/add" authentication-failure-url="/loginfailed" />
+			default-target-url="/books/add" 
+			authentication-failure-url="/loginfailed" 
+			username-parameter="username"
+			password-parameter="password"/>
 		<security:logout logout-success-url="/logout" />
 		<security:access-denied-handler
 			error-page="/403" />
 	</security:http>
 
-	<security:authentication-manager alias="authenticationManager">
+	<security:authentication-manager>
 		<security:authentication-provider>
-<!-- 			<security:jdbc-user-service -->
-<!-- 				data-source-ref="dataSource" -->
-<!-- 				users-by-username-query="select username, password, enabled from user where username = ?" /> -->
-			<security:user-service>
-				<security:user name="admin" password="admin"
-					authorities="ROLE_ADMIN" />
-				<security:user name="user" password="user"
-					authorities="ROLE_USER" />
-				<security:user name="kkk" password="kkk" authorities="ROLE_SEXY_BEAST" />
-			</security:user-service>
+			<security:jdbc-user-service
+				data-source-ref="dataSource"
+				users-by-username-query="select username, password from USER_AUTHENTICATION where username = ?"
+				authorities-by-username-query="select u1.username, u2.role from USER_AUTHENTICATION u1, USER_AUTHORIZATION u2 where u1.user_id = u2.user_id and u1.username = ?" />
+		
+		
+<!-- 			<security:user-service> -->
+<!-- 				<security:user name="admin" password="admin" -->
+<!-- 					authorities="ROLE_ADMIN" /> -->
+<!-- 				<security:user name="user" password="user" -->
+<!-- 					authorities="ROLE_USER" /> -->
+<!-- 			</security:user-service> -->
 		</security:authentication-provider>
 	</security:authentication-manager>
 

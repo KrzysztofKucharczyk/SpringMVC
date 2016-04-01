@@ -10,8 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "USERENTITY")
-public class UserEntity implements Serializable {
+@Table(name = "USER_AUTHENTICATION")
+public class UserAuthenticationEntity implements Serializable {
 
 	/**
 	 * 
@@ -21,17 +21,17 @@ public class UserEntity implements Serializable {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	@Column(nullable = false, length = 50)
-	private String userName;
+	private String username;
 	@Column(nullable = false, length = 200)
 	private String password;
 
 	// for hibernate
-	protected UserEntity() {
+	protected UserAuthenticationEntity() {
 	}
 
-	public UserEntity(Long id, String user, String password) {
+	public UserAuthenticationEntity(Long id, String user, String password) {
 		this.id = id;
-		this.userName = user;
+		this.username = user;
 		this.password = password;
 	}
 
@@ -44,11 +44,11 @@ public class UserEntity implements Serializable {
 	}
 
 	public String getUsername() {
-		return userName;
+		return username;
 	}
 
 	public void setUserName(String user) {
-		this.userName = user;
+		this.username = user;
 	}
 
 	public String getPassword() {

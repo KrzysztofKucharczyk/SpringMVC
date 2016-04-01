@@ -44,7 +44,7 @@ public class BookController {
 	@RequestMapping(value = "/book")
 	public String getBookById(@RequestParam("id") Long entryId, Model model) {
 		BookTo book = bookService.findBookById(entryId);
-		model.addAttribute("book", book);
+		model.addAttribute(ModelConstants.BOOK, book);
 		return ViewNames.BOOK;
 	}
 
@@ -69,59 +69,60 @@ public class BookController {
 
 			else if (authors.equals(""))
 				results = bookService.findBooksByTitle(title);
-			
+
 			else {
 				titlesList = bookService.findBooksByTitle(title);
 				authorsList = bookService.findBooksByAuthor(authors);
-				
-				for(BookTo book : authorsList)
-					if(titlesList.contains(book))
+
+				for (BookTo book : authorsList)
+					if (titlesList.contains(book))
 						results.add(book);
 			}
-			
-			model.addAttribute("foundBooks", results);
+
+			model.addAttribute(ModelConstants.BOOK_LIST, results);
 		}
 		return ViewNames.SEARCH;
 	}
-	
+
 	@RequestMapping(value = "/remove")
 	public String prepareToRemoveBookById(@RequestParam("id") Long entryId, Model model) {
 		BookTo book = bookService.findBookById(entryId);
-		model.addAttribute("bookToRemove", book);
-		return "acceptRemove";
+		model.addAttribute(ModelConstants.BOOK, book);
+		return ViewNames.ACCEPT_REMOVE;
 	}
 
 	@RequestMapping(value = "remove/removed")
 	public String removeBookById(@RequestParam("id") Long entryId, Model model) {
 		bookService.deleteBook(entryId);
-		return "removed";
+		return ViewNames.REMOVED;
 	}
-	
+
 	@RequestMapping(value = "/add")
 	public String addBook(Model model) {
-		return "add";
+		return ViewNames.ADD;
 	}
-	
+
 	@RequestMapping(value = "/adding")
-	public String addingBook(@RequestParam("title") String title, @RequestParam("authors") String authors, @RequestParam("status") String status) {
-		
+	public String addingBook(@RequestParam("title") String title, @RequestParam("authors") String authors,
+			@RequestParam("status") String status) {
+
 		BookTo newBook = new BookTo();
 
 		newBook.setTitle(title);
 		newBook.setAuthors(authors);
-		
-		if(status.equals("free"))
+
+		if (status.equals("free"))
 			newBook.setStatus(BookStatus.FREE);
-		if(status.equals("loan"))
+		if (status.equals("loan"))
 			newBook.setStatus(BookStatus.LOAN);
-		if(status.equals("missing"))
+		if (status.equals("missing"))
 			newBook.setStatus(BookStatus.MISSING);
-		
+
 		bookService.saveBook(newBook);
-		
-		return "added";
+
+		return ViewNames.ADDED;
 	}
-	
+
 	// TODO: Implement GET / POST methods for "add book" functionality
 
 	/**
@@ -131,6 +132,5 @@ public class BookController {
 	public void initialiseBinder(WebDataBinder binder) {
 		binder.setAllowedFields("id", "title", "authors", "status");
 	}
-
 
 }

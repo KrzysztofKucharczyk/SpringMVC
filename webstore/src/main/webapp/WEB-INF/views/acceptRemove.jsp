@@ -25,15 +25,15 @@
 		<div class="row">
 			<div class="component">
 				<h3>Title:</h3>
-				${bookToRemove.title}
+				${book.title}
 			</div>
 			<div class="component">
 				<h3>Authors:</h3>
-				${bookToRemove.authors}
+				${book.authors}
 			</div>
 			<div class="component">
 				<h3>Status:</h3>
-				${bookToRemove.status}
+				${book.status}
 			</div>
 			<div class="component">
 				<h3>Description:</h3>
@@ -44,7 +44,7 @@
 	<section class="container">
 		<a href="/webstore/books" class="btn btn-default">
 			<span class="glyphicon glyphicon-chevron-left" /></span> Back
-		</a> <a href="/webstore/books/remove/removed?id=${bookToRemove.id}" class="btn btn-default"> <span
+		</a> <a href="/webstore/books/remove/removed?id=${book.id}" class="btn btn-default"> <span
 			class="glyphicon glyphicon-remove" /></span> Remove
 		</a>
 	</section>

@@ -7,8 +7,6 @@
 		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd">
 
 
-	<import resource="classpath:spring/database-context.xml" />
-
 	<mvc:annotation-driven enable-matrix-variables="true">
 		<mvc:message-converters>
 			<bean
@@ -17,9 +15,6 @@
 			</bean>
 		</mvc:message-converters>
 	</mvc:annotation-driven>
-
-	<context:component-scan base-package="pl.spring.demo" />
-
 	<bean
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="prefix" value="/WEB-INF/views/" />
@@ -30,7 +25,7 @@
 		class="org.springframework.context.support.ResourceBundleMessageSource">
 		<property name="basename" value="messages" />
 	</bean>
-	
+
 	<bean id="jsonObjectMapper"
 		class="org.springframework.http.converter.json.Jackson2ObjectMapperFactoryBean">
 		<property name="objectMapper">
@@ -38,4 +33,9 @@
 		</property>
 	</bean>
 
+	<bean id="bookRestService" class="pl.spring.demo.rest.BookRestService" />
+	
+	<bean class="org.mockito.Mockito" factory-method="mock">
+		<constructor-arg value="pl.spring.demo.service.BookService" />
+	</bean>
 </beans>

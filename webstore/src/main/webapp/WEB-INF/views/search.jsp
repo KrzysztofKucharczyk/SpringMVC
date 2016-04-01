@@ -49,7 +49,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					<c:forEach items="${foundBooks}" var="book">
+					<c:forEach items="${bookList}" var="book">
 						<tr>
 							<td align="center">${book.title}</td>
 							<td align="center">${book.authors}</td>

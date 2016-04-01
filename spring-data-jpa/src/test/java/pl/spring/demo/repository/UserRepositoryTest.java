@@ -29,7 +29,7 @@ public class UserRepositoryTest {
 		UserEntity userEntity = userRepository.findOne(userId);
 		// then
 		assertNotNull(userEntity);
-		assertEquals("admin", userEntity.getUserName());
+		assertEquals("admin", userEntity.getUsername());
 	}
 
 	@Test
@@ -41,6 +41,6 @@ public class UserRepositoryTest {
 		// then
 		assertNotNull(usersEntity);
 		assertFalse(usersEntity.isEmpty());
-		assertEquals(userName, usersEntity.get(0).getUserName());
+		assertEquals(userName, usersEntity.get(0).getUsername());
 	}
 }

@@ -8,7 +8,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import java.io.File;
 import java.util.Arrays;
 
-import org.hibernate.engine.spi.Status;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

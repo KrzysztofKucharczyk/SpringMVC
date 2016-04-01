@@ -10,7 +10,7 @@ public class UserMapper {
 
 	public static UserTo map(UserEntity userEntity) {
 		if (userEntity != null) {
-			return new UserTo(userEntity.getId(), userEntity.getUserName(), userEntity.getPassword());
+			return new UserTo(userEntity.getId(), userEntity.getUsername(), userEntity.getPassword());
 		}
 		return null;
 	}
