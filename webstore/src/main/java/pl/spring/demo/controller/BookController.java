@@ -34,7 +34,7 @@ public class BookController {
 	private BookService bookService;
 
 	@RequestMapping
-	public String list(Model model) {
+	public String loadBookList(Model model) {
 		model.addAttribute(ModelConstants.GREETING, PAGE_NAME);
 		model.addAttribute(ModelConstants.INFO, PAGE_DESCRIPTION);
 		model.addAttribute(ModelConstants.BOOK_LIST, bookService.findAllBooks());
@@ -42,19 +42,19 @@ public class BookController {
 	}
 
 	@RequestMapping(value = "/book")
-	public String getBookById(@RequestParam("id") Long entryId, Model model) {
+	public String getBook(@RequestParam("id") Long entryId, Model model) {
 		BookTo book = bookService.findBookById(entryId);
 		model.addAttribute("book", book);
 		return ViewNames.BOOK;
 	}
 
 	@RequestMapping("/search")
-	public String getBookById(Model model) {
+	public String getBooks(Model model) {
 		return ViewNames.SEARCH;
 	}
 
 	@RequestMapping("/searchDetails")
-	public String getBookById(@RequestParam("title") String title, @RequestParam("authors") String authors,
+	public String searchBook(@RequestParam("title") String title, @RequestParam("authors") String authors,
 			Model model) {
 		List<BookTo> results = new ArrayList<>();
 		List<BookTo> titlesList = new ArrayList<>();
@@ -69,21 +69,21 @@ public class BookController {
 
 			else if (authors.equals(""))
 				results = bookService.findBooksByTitle(title);
-			
+
 			else {
 				titlesList = bookService.findBooksByTitle(title);
 				authorsList = bookService.findBooksByAuthor(authors);
-				
-				for(BookTo book : authorsList)
-					if(titlesList.contains(book))
+
+				for (BookTo book : authorsList)
+					if (titlesList.contains(book))
 						results.add(book);
 			}
-			
+
 			model.addAttribute("foundBooks", results);
 		}
 		return ViewNames.SEARCH;
 	}
-	
+
 	@RequestMapping(value = "/remove")
 	public String prepareToRemoveBookById(@RequestParam("id") Long entryId, Model model) {
 		BookTo book = bookService.findBookById(entryId);
@@ -92,37 +92,36 @@ public class BookController {
 	}
 
 	@RequestMapping(value = "remove/removed")
-	public String removeBookById(@RequestParam("id") Long entryId, Model model) {
+	public String removeBook(@RequestParam("id") Long entryId, Model model) {
 		bookService.deleteBook(entryId);
 		return "removed";
 	}
-	
+
 	@RequestMapping(value = "/add")
-	public String addBook(Model model) {
+	public String loadAddView(Model model) {
 		return "add";
 	}
-	
+
 	@RequestMapping(value = "/adding")
-	public String addingBook(@RequestParam("title") String title, @RequestParam("authors") String authors, @RequestParam("status") String status) {
-		
+	public String addBook(@RequestParam("title") String title, @RequestParam("authors") String authors,
+			@RequestParam("status") String status) {
+
 		BookTo newBook = new BookTo();
 
 		newBook.setTitle(title);
 		newBook.setAuthors(authors);
-		
-		if(status.equals("free"))
+
+		if (status.equals("free"))
 			newBook.setStatus(BookStatus.FREE);
-		if(status.equals("loan"))
+		if (status.equals("loan"))
 			newBook.setStatus(BookStatus.LOAN);
-		if(status.equals("missing"))
+		if (status.equals("missing"))
 			newBook.setStatus(BookStatus.MISSING);
-		
+
 		bookService.saveBook(newBook);
-		
+
 		return "added";
 	}
-	
-	// TODO: Implement GET / POST methods for "add book" functionality
 
 	/**
 	 * Binder initialization
@@ -131,6 +130,5 @@ public class BookController {
 	public void initialiseBinder(WebDataBinder binder) {
 		binder.setAllowedFields("id", "title", "authors", "status");
 	}
-
 
 }

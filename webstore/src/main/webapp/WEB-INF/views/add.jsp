@@ -31,7 +31,7 @@
 										<label class="radio-inline"><input type="radio" name="status" value='loan'>Loan</label>
 										<label class="radio-inline"><input type="radio" name="status" value='missing'>Missing</label>
 
-					<input type='submit' value='Search' class='btn' />
+					<input type='submit' value='Create' class='btn' />
 				</form>
 			</div>
 		</div>
